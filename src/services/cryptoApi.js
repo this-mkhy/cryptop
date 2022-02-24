@@ -7,7 +7,6 @@ const cryptoApiHeaders = {
 
 const baseUrl = 'https://coinranking1.p.rapidapi.com'
 
-
 const createRequest = (url) => ({ url, headers: cryptoApiHeaders });
   
 //fetch data from rapid api
@@ -19,15 +18,21 @@ export const cryptoApi = createApi({
       //we have to export this endpoint
       getCryptos: builder.query({
         query: (count) => createRequest(`/coins?limit=${count}`),
+      }),      
+      getCryptoDetails: builder.query({
+        query: (coinId) => createRequest(`/coin/${coinId}`),
+      }),
+      getCryptoHistory: builder.query({
+        query: ({coinId, timePeriod}) => createRequest(`coin/${coinId}/history?timeperiod=${timePeriod}`),
       }),
     }),
 });
 
+//export useQuery to use in the components
 export const {
     useGetCryptosQuery,
-    // useGetCryptoDetailsQuery,
-    // useGetExchangesQuery,
-    // useGetCryptoHistoryQuery,
+    useGetCryptoDetailsQuery,
+    useGetCryptoHistoryQuery,
 } = cryptoApi;
 
 // var options = {
