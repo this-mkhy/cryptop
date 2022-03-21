@@ -20,15 +20,15 @@ export const cryptoApi = createApi({
         query: (count) => createRequest(`/coins?limit=${count}`),
       }),
       getExchanges: builder.query({
-        query: () => createRequest('/exchanges'),
+        query: () => createRequest(`/exchanges`),
       }),  
       getCryptoDetails: builder.query({
         query: (coinId) => createRequest(`/coin/${coinId}`),
       }),
       getCryptoHistory: builder.query({
-        query: ({coinId, timePeriod}) => createRequest(`coin/${coinId}/history?timeperiod=${timePeriod}`),
+        query: ({coinId, timePeriod}) => createRequest(`/coin/${coinId}/history/${timePeriod}`),
+        //query: ({coinId, timePeriod}) => createRequest(`/coin/${coinId}/history?timePeriod=${timePeriod}`),
       }),
-
     }),
 });
 
@@ -52,6 +52,6 @@ export const {
 //     },
 //     headers: {
 //       'x-rapidapi-host': 'coinranking1.p.rapidapi.com',
-//       'x-rapidapi-key': '1169651f57msh618d75a65128dfap1767bbjsnd606012fe114'
+//       'x-rapidapi-key': 'key'
 //     }
 //   };

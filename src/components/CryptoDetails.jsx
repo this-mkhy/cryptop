@@ -31,7 +31,7 @@ const CryptoDetails = () => {
   const stats = [
     { title: 'Price to USD', value: `$ ${cryptoDetails?.price && millify(cryptoDetails?.price)}`, icon: <DollarCircleOutlined /> },
     { title: 'Rank', value: cryptoDetails?.rank, icon: <NumberOutlined /> },
-    { title: '24h Volume', value: `$ ${cryptoDetails?.volume && millify(cryptoDetails?.volume)}`, icon: <ThunderboltOutlined /> },
+    { title: 'Change', value: `$ ${cryptoDetails?.change && millify(cryptoDetails?.change)}`, icon: <ThunderboltOutlined /> },
     { title: 'Market Cap', value: `$ ${cryptoDetails?.marketCap && millify(cryptoDetails?.marketCap)}`, icon: <DollarCircleOutlined /> },
     { title: 'All-time-high(daily avg.)', value: `$ ${cryptoDetails?.allTimeHigh?.price && millify(cryptoDetails?.allTimeHigh?.price)}`, icon: <TrophyOutlined /> },
   ];
@@ -44,6 +44,8 @@ const CryptoDetails = () => {
     { title: 'Circulating Supply', value: `$ ${cryptoDetails?.supply?.circulating && millify(cryptoDetails?.supply?.circulating)}`, icon: <ExclamationCircleOutlined /> },
   ];
 
+  //console.log(cryptoDetails)
+  
   return (
     <Col className="coin-detail-container">
       <Col className="coin-heading-container">
@@ -56,11 +58,13 @@ const CryptoDetails = () => {
         {time.map((date) => <Option key={date}>{date}</Option>)}
       </Select>
 
+      {/* Chart */}
       <LineChart 
         coinHistory={coinHistory} 
         currentPrice={millify(cryptoDetails?.price)} 
         coinName={cryptoDetails?.name} 
-      /> 
+        coinChange={cryptoDetails?.change}
+      />
       
       <Col className="stats-container">
         <Col className="coin-value-statistics">
@@ -78,11 +82,13 @@ const CryptoDetails = () => {
             </Col>
           ))}
         </Col>
+
         <Col className="other-stats-info">
           <Col className="coin-value-statistics-heading">
-            <Title level={3} className="coin-details-heading">Other Stats Info</Title>
-            <p>An overview showing the statistics of {cryptoDetails.name}, such as the base and quote currency, the rank, and trading volume.</p>
+            <Title level={3} className="coin-details-heading">Other Statistics Info</Title>
+            <p>An overview showing the stats of all cryptocurrencies.</p>
           </Col>
+
           {genericStats.map(({ icon, title, value }) => (
             <Col className="coin-stats">
               <Col className="coin-stats-name">
@@ -94,6 +100,7 @@ const CryptoDetails = () => {
           ))}
         </Col>
       </Col>
+      
       <Col className="coin-desc-link">
         <Row className="coin-desc">
           <Title level={3} className="coin-details-heading">What is {cryptoDetails.name}?</Title>
